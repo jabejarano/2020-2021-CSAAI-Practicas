@@ -1,8 +1,14 @@
 /* Documento de estilo del CV de John Wick */
+html {
+    background-image: url("fondo.jpg");
+    /* background-size: cover; */
 
-
-body {
-    background-color: lightblue;
+body{
+    background-color: none;
+}
+/* Estilo encabezado */
+h1{
+    text-align: center;
 }
 
 h2 {
