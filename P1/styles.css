@@ -19,3 +19,22 @@ h4 {
     background-color: yellow;
     color: green;
 }
+
+h3{
+    padding: 0px;
+    margin: 0px;
+    border: solid;
+    border-color: black;
+}
+h2{
+    padding: 0px;
+    margin: 0px;
+    border: solid;
+    border-color: black;
+}
+h4{
+    padding: 0px;
+    margin: 0px;
+    border: solid;
+    border-color: black;
+}
