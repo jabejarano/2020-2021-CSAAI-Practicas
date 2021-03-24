@@ -6,13 +6,16 @@ body {
 }
 
 h2 {
+    background-color: green;
     color:black;
 }
 
 h3 {
+    background-color: white;
     color:red;
 }
 
 h4 {
+    background-color: yellow;
     color: green;
 }
