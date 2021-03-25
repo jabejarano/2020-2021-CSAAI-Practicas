@@ -9,38 +9,19 @@ body {
 /* Estilo encabezado */
 h1{
     text-align: center;
+    color: rgb(56, 51, 51);
 }
-
-h2 {
+/* Estilo títulos */
+h2 {    
     background-color: green;
     color:white;
-}
-
-h3 {
-    background-color: white;
-    color:red;
-}
-
-h4 {
-    background-color: yellow;
-    color: green;
-}
-
-h3{
     padding: 0px;
     margin: 0px;
     border: solid;
     border-color: white;
 }
-h2{
-    padding: 0px;
-    margin: 0px;
-    border: solid;
-    border-color: white;
-}
-h4{
-    padding: 0px;
-    margin: 0px;
-    border: solid;
-    border-color: white;
-}
+
+
+
+
+
