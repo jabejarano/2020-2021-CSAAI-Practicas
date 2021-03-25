@@ -11,8 +11,8 @@ h1{
     text-align: center;
     color: rgb(56, 51, 51);
 }
-/* Estilo títulos */
-h2 {    
+
+.titulos{
     background-color: green;
     color:white;
     padding: 0px;
@@ -20,8 +20,6 @@ h2 {
     border: solid;
     border-color: white;
 }
-
-
 
 
 
