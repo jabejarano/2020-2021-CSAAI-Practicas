@@ -10,16 +10,44 @@ body {
 h1{
     text-align: center;
     color: rgb(56, 51, 51);
+    border: solid;
+    border-color: black;
 }
 
-.titulos{
-    background-color: green;
-    color:white;
+h6{
+    text-align: left;
+    color: black;
+}
+
+.tituloscenter{
+    background-color: none;
+    color:black;
     padding: 0px;
     margin: 0px;
-    border: solid;
-    border-color: white;
+    border: none;
+    border-color:none;
+    text-align: center;
 }
 
+.skills{
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    list-style: none;
+}
 
+.bloqueizq{
+    display: inline-block; /*Bloques a la misma altura */
+    width: "260";
+    height: "125";
+    border: solid;
+    border-color: black;
+}
 
+.bloquecen{
+    display: inline-block;
+    width: "260";
+    height: "125";
+    border: solid;
+    border-color: black;
+}
