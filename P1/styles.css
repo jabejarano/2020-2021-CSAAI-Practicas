@@ -5,18 +5,33 @@ html {
 }
 body {
     background-color: none;
-}
-/* Estilo encabezado */
-h1{
-    text-align: center;
-    color: rgb(56, 51, 51);
+    padding: 10px; /*Relleno*/
     border: solid;
     border-color: black;
+
+}
+/* Estilo encabezado */
+ h1{
+    text-align: center;
+    color: rgb(56, 51, 51);
+    border-bottom: 5px solid rgb(51, 37, 184);
+} 
+h2{
+    border-bottom: 5px solid rgb(51, 37, 184);
+}
+h5{
+    text-align: center;
 }
 
 h6{
     text-align: left;
     color: black;
+}
+
+.titulosleft{
+    border: solid;
+    border:black 5px double;
+    padding: 2px; 
 }
 
 .tituloscenter{
@@ -26,28 +41,36 @@ h6{
     margin: 0px;
     border: none;
     border-color:none;
-    text-align: center;
+    text-align: left;
 }
 
 .skills{
     display: inline-block;
-    text-align: center;
+    text-align: left;
     align-items: center;
     list-style: none;
+    margin: -10px;
 }
 
 .bloqueizq{
-    display: inline-block; /*Bloques a la misma altura */
+    float: left;
     width: "260";
     height: "125";
-    border: solid;
-    border-color: black;
+    border: 
+    border-color: none;
+    padding: 10px; /*Relleno*/
 }
 
 .bloquecen{
-    display: inline-block;
-    width: "260";
-    height: "125";
-    border: solid;
-    border-color: black;
+    display: inline-block; /*Bloques a la misma altura */
+    color: black;
+    background-color:  none;
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: none;
+    border: none;
+    height: 700px;
+    width: 850px;
+    padding: 10px;      
+    margin: 3px;
 }
