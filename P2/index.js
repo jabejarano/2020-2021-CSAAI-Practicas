@@ -37,17 +37,16 @@ function digito(ev)
     if (estado == ESTADO.INIT) {
 
         display.innerHTML = ev.target.value;
-
         //-- Pasar al siguiente estado
         estado = ESTADO.OP1;
-
-    } else {
-       
-        //--En cualquier otro estado lo añadimos
+    } else if (estado == ESTADO.OP1){
         display.innerHTML += ev.target.value;
-
-        //-- Y nos quedamos en el mismo estado
-    } 
+    } else if (estado == ESTADO.OPERATION){
+      display.innerHTML += ev.target.value;
+      estado = ESTADO.OP2;
+    } else if (estado == ESTADO.OP2){
+      display.innerHTML += ev.target.value;
+    }
     
 }
 
@@ -61,19 +60,30 @@ for (let boton of digitos) {
 //-- para todos los botones de tipo signo
 for (let boton of signos) {
   boton.onclick = (ev) => {
-    display.innerHTML += ev.target.value;
-    console.log("SIGNO!!!");
+    if(estado == ESTADO.OP1){
+      display.innerHTML += ev.target.value;
+      estado = ESTADO.OPERATION;
+      console.log("SIGNO!!!");
+    }
   }
 }
 
 //-- Evaluar la expresion
-igual.onclick = () => {
-    display.innerHTML = eval(display.innerHTML);
+igual.onclick = () =>  {
+  if(estado == ESTADO.OP1 ||  estado == ESTADO.OP2){
+  display.innerHTML = eval(display.innerHTML);
+  estado = ESTADO.OP1;
   }
+}
   
   //-- Borrar último digito
 borrar.onclick = () => {
   display.innerHTML = display.innerHTML.slice(0,-1);
+  if (display.innerHTML == 0){
+    display.innerHTML = "0";
+    console.log("delete");
+    estado = ESTADO.INIT;
+  }
 }
 
 //-- Poner a cero la expresion
@@ -81,4 +91,4 @@ clear.onclick = () => {
     display.innerHTML = "0";
     console.log("clear");
     estado = ESTADO.INIT;
-  }
+}
