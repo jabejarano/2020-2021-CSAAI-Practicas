@@ -3,8 +3,8 @@ console.log("Ejecutando JS...");
 const canvas = document.getElementById("canvas");
 
 //-- Definir el tamaño del convas
-canvas.width = 500;
-canvas.height = 250;
+canvas.width = 600;
+canvas.height = 550;
 
 //-- Obtener el contexto del canvas
 const ctx = canvas.getContext("2d");
@@ -20,16 +20,17 @@ let estado = ESTADO.START;
 
 //-- Coordenadas de la pelota
 let x = 250;
-let y = 200;
+let y = 520;
 
 //-- Velocidades del objeto
 let velx = 4;
-let vely = -3;
+let vely = -8;
  
 //-- coordenadas Raqueta
-let l = 100;
-let p = 220;
+let l = 250;
+let p = 530;
 
+let lifes = 3
 //-- Funcion principal de animacion
 function update() 
 {
@@ -49,13 +50,18 @@ function update()
     }
 
     //-- Codición si la bola pasa la raqueta de abajo se reinicia el movimiento
-    if (y >= 250 ) {
+    if (y >= 550 ) {
       console.log("fuera");
       estado = ESTADO.START;
       x = 250;
-      y = 200;
+      y = 520;
       vely = -vely;
       velx = -velx;
+      lifes -= 1;
+      if (lifes == 0) {
+        estado = estado = ESTADO.START;
+        lifes = 3;
+      }
     }
 
 
@@ -71,9 +77,6 @@ function update()
     (y + 5) >= p && y <=(p + 10)) {
     vely = -vely;
     }
-
-
-
 
   
     //-- Actualizar la posición
@@ -117,6 +120,11 @@ function update()
     ctx.fill()
       
   ctx.closePath()
+
+  ctx.font = "25px Arial";
+  ctx.filltyle = 'black';
+  // ctx.fillText("Puntuación: " + scores, 10, 40);
+  ctx.fillText("Vidas: " + lifes, 430, 40);
 
   //-- 4) Volver a ejecutar update cuando toque
   requestAnimationFrame(update);
