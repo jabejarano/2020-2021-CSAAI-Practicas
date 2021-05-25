@@ -18,14 +18,17 @@ const ESTADO = {
 
 let estado = ESTADO.START;
 
-//-- Coordenadas del objeto
+//-- Coordenadas de la pelota
 let x = 250;
 let y = 200;
 
 //-- Velocidades del objeto
-let velx = -3;
-let vely = -1;
+let velx = 4;
+let vely = -3;
  
+//-- coordenadas Raqueta
+let l = 100;
+let p = 220;
 
 //-- Funcion principal de animacion
 function update() 
@@ -47,20 +50,34 @@ function update()
 
     //-- Codición si la bola pasa la raqueta de abajo se reinicia el movimiento
     if (y >= 250 ) {
+      console.log("fuera");
       estado = ESTADO.START;
-      console.log("fuera")
+      x = 250;
+      y = 200;
+      vely = -vely;
+      velx = -velx;
     }
 
 
     window.onkeydown = (e) => {
-    if (e.key == 'Enter' && estado == ESTADO.START){
-      estado = ESTADO.INIT;
-      console.log("SAQUE")
+    if (e.key == ' ' && estado == ESTADO.START){
+      console.log("DIBUJAR");
+      estado = ESTADO.INGAME;
       }
     }
+    
+    //-Colision bola con raqueta
+    if ((x + 10) >= l && x <=(l + 100) &&
+    (y + 5) >= p && y <=(p + 10)) {
+    vely = -vely;
+    }
+
+
+
+
   
     //-- Actualizar la posición
-    if (estado == ESTADO.INIT) {
+    if (estado == ESTADO.INGAME) {
       x = x + velx;
       y = y + vely;
     }
@@ -68,15 +85,17 @@ function update()
     //-- 2) Borrar el canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     //-- 3) Dibujar los elementos visibles
+
     ctx.beginPath();
     //-- Dibujar un circulo: coordenadas x,y del centro
     //-- Radio, Angulo inicial y angulo final
-    if (estado == ESTADO.INIT) {
-    ctx.arc(x, y, 10, 0, 2 * Math.PI);
+    if (estado == ESTADO.INGAME) {
+      ctx.arc(x, y, 10, 0, 2 * Math.PI);
     }
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 3;
     ctx.fillStyle = 'yellow';
+
 
     //-- Dibujar el relleno
     ctx.fill()
@@ -84,6 +103,20 @@ function update()
     //-- Dibujar el trazo
     ctx.stroke()
   ctx.closePath();
+
+
+  ctx.beginPath();
+    //-- Raqueta
+    ctx.rect(l ,p , 80, 10);
+    ctx.fillStyle = 'white';
+
+    //-- Dibujar el trazo
+    ctx.stroke()
+
+    //-- Dibujar el relleno
+    ctx.fill()
+      
+  ctx.closePath()
 
   //-- 4) Volver a ejecutar update cuando toque
   requestAnimationFrame(update);
