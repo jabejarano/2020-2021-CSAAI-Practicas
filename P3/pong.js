@@ -24,13 +24,20 @@ let y = 520;
 
 //-- Velocidades del objeto
 let velx = 4;
-let vely = -8;
+let vely = -3;
  
 //-- coordenadas Raqueta
 let l = 250;
 let p = 530;
 
-let lifes = 3
+let vell = 15;
+
+let lifes = 3;
+
+let rightPressed = false;
+
+let leftPressed = false;
+
 //-- Funcion principal de animacion
 function update() 
 {
@@ -83,7 +90,29 @@ function update()
     if (estado == ESTADO.INGAME) {
       x = x + velx;
       y = y + vely;
+
+      window.onkeydown = (e) => {     // Tecla pulsada
+        if(e.keyCode == 39) {
+            rightPressed = true;
+            l = l + vell;
+          }
+          else if(e.keyCode == 37) {
+            leftPressed = true;
+            l = l - vell;
+          } 
+        }
+        window.onkeyup = (e) => {       // Tecla liberada
+        if (e.keyCode == 39) {
+            rightPressed = false;
+            
+          }
+        else if(e.keyCode == 37) {
+            leftPressed = false;
+            
+            } 
+          }
     }
+    
   
     //-- 2) Borrar el canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -125,6 +154,8 @@ function update()
   ctx.filltyle = 'black';
   // ctx.fillText("Puntuación: " + scores, 10, 40);
   ctx.fillText("Vidas: " + lifes, 430, 40);
+
+ 
 
   //-- 4) Volver a ejecutar update cuando toque
   requestAnimationFrame(update);
