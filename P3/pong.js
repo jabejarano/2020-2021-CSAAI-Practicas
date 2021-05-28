@@ -108,8 +108,23 @@ function update()
       velx = -velx;
       lifes -= 1;
       if (lifes == 0) {
-        estado = estado = ESTADO.START;
-        lifes = 3;
+        estado = ESTADO.FINISH;
+      }
+    }
+
+    if (estado == ESTADO.FINISH) {
+      //-Mensaje victoria
+      if (Puntuación == 10) {
+      ctx.font = "30px Arial Black";
+      ctx.fillStyle = 'RED'
+      ctx.fillText("VICTORY", 200, 40);
+      console.log("victoria");
+      }else{
+      //-Mensaje derrota
+      ctx.font = "50px Arial Black";
+      ctx.fillStyle = 'red'
+      ctx.fillText("¡¡GAME OVER!!", 200, 40);
+      console.log("Has perdido");
       }
     }
 
@@ -137,11 +152,11 @@ function update()
                       ladrillos[i][j].visible = false;
                       vely = -vely;
                       Puntuación += 1;
-                      }
             }
           }
       }
     }
+  }
 
   
     //-- Actualizar la posición
@@ -216,6 +231,20 @@ function update()
   ctx.fillText("Score " + Puntuación, 10, 40);
   ctx.fillText("Vidas: " + lifes, 430, 40);
 
+  if (Puntuación == 10){
+  ctx.font = "30px Arial Black";
+  ctx.fillStyle = 'green'
+  ctx.fillText("VICTORY", 200, 40);
+  estado = ESTADO.FINISH;
+  }
+
+  if (lifes == 0){
+      ctx.font = "30px Arial Black";
+      ctx.fillStyle = 'red'
+      ctx.fillText("FIN DEL JUEGO", 140, 40);
+      console.log("Has perdido");
+      estado = ESTADO.FINISH;
+  }
 
   
 
