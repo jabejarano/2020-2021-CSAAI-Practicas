@@ -41,6 +41,8 @@ let rightPressed = false;
 
 let leftPressed = false;
 
+let Puntuación = 0;
+
 //-- Constantes de los ladrillos
 const LADRILLO = {
   F: 5,  // Filas
@@ -134,6 +136,7 @@ function update()
                       (y + 10) >= ladrillos[i][j].y && y <=(ladrillos[i][j].y + 25)) {
                       ladrillos[i][j].visible = false;
                       vely = -vely;
+                      Puntuación += 1;
                       }
             }
           }
@@ -210,8 +213,11 @@ function update()
 
   ctx.font = "25px Arial";
   ctx.filltyle = 'black';
-  // ctx.fillText("Puntuación: " + scores, 10, 40);
+  ctx.fillText("Score " + Puntuación, 10, 40);
   ctx.fillText("Vidas: " + lifes, 430, 40);
+
+
+  
 
   //-- Dibujar ladrillos
   for (let i = 0; i < LADRILLO.F; i++) {
