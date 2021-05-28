@@ -22,7 +22,7 @@ let estado = ESTADO.START;
 let x = 250;
 let y = 520;
 
-//-- Velocidades del objeto
+//-- Velocidades de la pelota
 let velx = 4;
 let vely = -2;
  
@@ -30,18 +30,21 @@ let vely = -2;
 let l = 250;
 let p = 530;
 
-let vell = 15;
+//-- Velcidad Raqueta
+let vell = 16;
 
+//-- Inicializando contador vidas
 let lifes = 3;
 
+//-- Inicializando teclas NO pulsadas
 let rightPressed = false;
 
 let leftPressed = false;
 
 //-- Constantes de los ladrillos
 const LADRILLO = {
-  F: 5,  // Filas
-  C: 9,  // Columnas
+  F: 1,  // Filas
+  C: 1,  // Columnas
   w: 60,
   h: 15,
   origen_x: 8,
@@ -108,6 +111,7 @@ function update()
       }
     }
 
+  
 
     window.onkeydown = (e) => {
     if (e.key == ' ' && estado == ESTADO.START){
@@ -129,15 +133,17 @@ function update()
       y = y + vely;
 
       window.onkeydown = (e) => {     // Tecla pulsada
-        if(e.keyCode == 39) {
+        if(e.keyCode == 39 && l < 507) {
             rightPressed = true;
             l = l + vell;
           }
-          else if(e.keyCode == 37) {
+          else if(e.keyCode == 37 && l > 2) {
             leftPressed = true;
             l = l - vell;
           } 
         }
+    
+
         window.onkeyup = (e) => {       // Tecla liberada
         if (e.keyCode == 39) {
             rightPressed = false;
@@ -149,6 +155,7 @@ function update()
             } 
           }
     }
+  
     
   
     //-- 2) Borrar el canvas
@@ -176,7 +183,7 @@ function update()
 
   ctx.beginPath();
     //-- Raqueta
-    ctx.rect(l ,p , 80, 10);
+    ctx.rect(l ,p , 90, 8);
     ctx.fillStyle = 'white';
 
     //-- Dibujar el trazo
