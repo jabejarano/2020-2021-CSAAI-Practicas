@@ -24,14 +24,14 @@ let y = 520;
 
 //-- Velocidades de la pelota
 let velx = 4;
-let vely = -2;
+let vely = -4;
  
 //-- coordenadas Raqueta
 let l = 250;
 let p = 530;
 
 //-- Velcidad Raqueta
-let vell = 16;
+let vell = 18;
 
 //-- Inicializando contador vidas
 let lifes = 3;
@@ -43,10 +43,10 @@ let leftPressed = false;
 
 //-- Constantes de los ladrillos
 const LADRILLO = {
-  F: 1,  // Filas
-  C: 1,  // Columnas
-  w: 60,
-  h: 15,
+  F: 5,  // Filas
+  C: 9,  // Columnas
+  w: 60, // Ancho
+  h: 15, // Alto
   origen_x: 8,
   origen_y: 60,
   padding: 5,
@@ -126,6 +126,20 @@ function update()
     vely = -vely;
     }
 
+    if (estado == ESTADO.INGAME){
+      for (let i = 0; i < LADRILLO.F; i++) {
+          for (let j = 0; j < LADRILLO.C; j++) {
+            if (ladrillos[i][j].visible == true){
+                  if ((x + 10) >= ladrillos[i][j].x && x <=(ladrillos[i][j].x + 70) &&
+                      (y + 10) >= ladrillos[i][j].y && y <=(ladrillos[i][j].y + 25)) {
+                      ladrillos[i][j].visible = false;
+                      vely = -vely;
+                      }
+            }
+          }
+      }
+    }
+
   
     //-- Actualizar la posición
     if (estado == ESTADO.INGAME) {
@@ -133,11 +147,11 @@ function update()
       y = y + vely;
 
       window.onkeydown = (e) => {     // Tecla pulsada
-        if(e.keyCode == 39 && l < 507) {
+        if(e.keyCode == 39 && l < 507) { // Muro derecha
             rightPressed = true;
             l = l + vell;
           }
-          else if(e.keyCode == 37 && l > 2) {
+          else if(e.keyCode == 37 && l > 2) { // Muro Izquierda
             leftPressed = true;
             l = l - vell;
           } 
@@ -204,15 +218,20 @@ function update()
     for (let j = 0; j < LADRILLO.C; j++) {
 
       //-- Si el ladrillo es visible se pinta
-      if (ladrillos[i][j].visible) {
+      if (ladrillos[i][j].visible == true) {
         ctx.beginPath();
         ctx.rect(ladrillos[i][j].x, ladrillos[i][j].y, LADRILLO.w, LADRILLO.h);
         ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.closePath();
       }
+      else if(ladrillos[i][j].visible == false){
+      ladrillos[i][j] = [];
     }
   }
+}
+
+  
 
   //-- 4) Volver a ejecutar update cuando toque
   requestAnimationFrame(update);
