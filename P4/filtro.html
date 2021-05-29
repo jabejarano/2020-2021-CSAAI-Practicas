@@ -14,7 +14,19 @@
     <p>Imagen manipulada</p>
     <canvas id="canvas"></canvas>
     <br>
-    <button type="button" id="img1">GRISES</button>
+    <div class="boton">
+    <button type="button" id="grises">GRISES</button>
     <button type="button" id="img2">COLORES</button>
+    </div>
+    <div class="bloquecentro">
+    <p>Rojo:</p>
+    <input type="range" id="deslizadorR" min="0" max="255" value="255"/>
+    <p id="range_valueR">00</p>
+    </div>
+    <div class="verde">
+    <p>Verde:</p>
+    <input type="range" id="deslizadorG" min="0" max="255" value="255"/>
+    <p id="range_valueG">00</p>
+    </div>
 </body>
 </html>
