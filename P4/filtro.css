@@ -3,3 +3,16 @@ body {
   }
 
 
+  .boton{
+    float: top;
+  }
+
+
+
+.bloquecentro{
+    float: left;
+}
+
+.verde{
+    display: inline-block;
+}
