@@ -8,10 +8,11 @@ const ctx = canvas.getContext('2d');
 //-- Acceso al deslizador
 const deslizadorR = document.getElementById('deslizadorR');
 const deslizadorG = document.getElementById('deslizadorG');
-
+const deslizadorB = document.getElementById('deslizadorB');
 //-- Valor del deslizador
 const range_valueR = document.getElementById('range_valueR');
 const range_valueG = document.getElementById('range_valueG');
+const range_valueB = document.getElementById('range_valueB');
 
 grises.onclick = () => {
 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -48,6 +49,7 @@ function umbrales(){
     //-- Mostrar el nuevo valor del deslizador
     range_valueR.innerHTML = deslizadorR.value;
     range_valueG.innerHTML = deslizadorG.value;
+    range_valueB.innerHTML = deslizadorB.value;
   
     //-- Situar la imagen original en el canvas
     //-- No se han hecho manipulaciones todavia
@@ -62,6 +64,7 @@ function umbrales(){
     //-- Obtener el umbral de rojo del desliador
     umbralR = deslizadorR.value
     umbralG = deslizadorG.value
+    umbralB = deslizadorB.value
 
   
     //-- Filtrar la imagen según el nuevo umbral
@@ -71,6 +74,9 @@ function umbrales(){
     }
     if (data[i+1] > umbralG){
         data[i+1] = umbralG;
+    }
+    if (data[i+2] > umbralB){
+        data[i+2] = umbralB;
     }
     }  
     //-- Poner la imagen modificada en el canvas
@@ -84,6 +90,9 @@ function umbrales(){
     deslizadorG.oninput = () => {
     umbrales();
   }
+    deslizadorB.oninput = () => {
+    umbrales();
+    }
 
 
   

@@ -1,3 +1,8 @@
 body {
     background-color: grey;
   }
+
+.original{
+  border: 4px solid rgb(108, 5, 5);
+  border-radius: 10px;
+}

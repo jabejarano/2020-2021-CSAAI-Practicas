@@ -11,8 +11,8 @@ const LADRILLO = {
     C: 3,  // Columnas
     w: 30,
     h: 20,
-    origen_x: 0,
-    origen_y: 0,
+    origen_x: 50,
+    origen_y: 20,
     padding: 5,
     visible: true
 };
@@ -32,8 +32,8 @@ for (let i = 0; i < LADRILLO.F; i++) {
         //-- Calcular valores para el ladrillo de la fila i y la columna j
         //-- Algunos valores son constantes. Otros dependen de i y j
       ladrillos[i][j] = {
-          x: (LADRILLO.w + LADRILLO.padding) * j,
-          y: (LADRILLO.h + LADRILLO.padding) * i,
+          x: (LADRILLO.w + LADRILLO.padding) * j +  LADRILLO.origen_x,
+          y: (LADRILLO.h + LADRILLO.padding) * i + LADRILLO.origen_y,
           w: LADRILLO.w,
           h: LADRILLO.h,
           padding: LADRILLO.padding,

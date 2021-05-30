@@ -22,33 +22,63 @@ let estado = ESTADO.START;
 let x = 250;
 let y = 520;
 
-//-- Velocidades del objeto
+//-- Velocidades de la pelota
 let velx = 4;
-let vely = -2;
+let vely = -4;
  
 //-- coordenadas Raqueta
 let l = 250;
 let p = 530;
 
-let vell = 15;
+//-- Velcidad Raqueta
+let vell = 18;
 
+//-- Inicializando contador vidas
 let lifes = 3;
 
+//-- Inicializando teclas NO pulsadas
 let rightPressed = false;
 
 let leftPressed = false;
 
+let Puntuación = 0;
+
 //-- Constantes de los ladrillos
 const LADRILLO = {
-  F: 2,  // Filas
-  C: 3,  // Columnas
-  w: 30,
-  h: 20,
-  origen_x: 0,
-  origen_y: 0,
+  F: 5,  // Filas
+  C: 9,  // Columnas
+  w: 60, // Ancho
+  h: 15, // Alto
+  origen_x: 8,
+  origen_y: 60,
   padding: 5,
   visible: true
 };
+
+  //-- Estructura de los ladrillos
+//-- Creación de los ladrillos, que inicialmente está vacío
+//-- en el objeto ladrillos, que inicialmente está vacío
+const ladrillos = [];
+
+//-- Recorrer todas las filas. La veriable i toma valores de 0 hasta F-1 (número de filas)
+for (let i = 0; i < LADRILLO.F; i++) {
+    ladrillos[i] = [];  //-- Inicilizar la fila. Las filas son a su vez Arrays que inicialmente están vacíos
+
+    //-- Recorrer las C columnas de la fila i. La variable j toma valores de 0 hasta C-1 (numero de columnas)
+    for (let j = 0; j < LADRILLO.C; j++) {
+
+        //-- Calcular valores para el ladrillo de la fila i y la columna j
+        //-- Algunos valores son constantes. Otros dependen de i y j
+      ladrillos[i][j] = {
+          x: (LADRILLO.w + LADRILLO.padding) * j +  LADRILLO.origen_x,
+          y: (LADRILLO.h + LADRILLO.padding) * i + LADRILLO.origen_y,
+          w: LADRILLO.w,
+          h: LADRILLO.h,
+          padding: LADRILLO.padding,
+          visible: LADRILLO.visible
+        };
+    }
+}
 
 //-- Funcion principal de animacion
 function update() 
@@ -64,7 +94,7 @@ function update()
     }
   
     //-- Condición de rebote en extremos horizontales del canvas
-    if (y <= 0) {
+    if (y <= 60) {
       vely = -vely;
     }
 
@@ -78,11 +108,27 @@ function update()
       velx = -velx;
       lifes -= 1;
       if (lifes == 0) {
-        estado = estado = ESTADO.START;
-        lifes = 3;
+        estado = ESTADO.FINISH;
       }
     }
 
+    if (estado == ESTADO.FINISH) {
+      //-Mensaje victoria
+      if (Puntuación == 10) {
+      ctx.font = "30px Arial Black";
+      ctx.fillStyle = 'RED'
+      ctx.fillText("VICTORY", 200, 40);
+      console.log("victoria");
+      }else{
+      //-Mensaje derrota
+      ctx.font = "50px Arial Black";
+      ctx.fillStyle = 'red'
+      ctx.fillText("¡¡GAME OVER!!", 200, 40);
+      console.log("Has perdido");
+      }
+    }
+
+  
 
     window.onkeydown = (e) => {
     if (e.key == ' ' && estado == ESTADO.START){
@@ -97,6 +143,21 @@ function update()
     vely = -vely;
     }
 
+    if (estado == ESTADO.INGAME){
+      for (let i = 0; i < LADRILLO.F; i++) {
+          for (let j = 0; j < LADRILLO.C; j++) {
+            if (ladrillos[i][j].visible == true){
+                  if ((x + 10) >= ladrillos[i][j].x && x <=(ladrillos[i][j].x + 70) &&
+                      (y + 10) >= ladrillos[i][j].y && y <=(ladrillos[i][j].y + 25)) {
+                      ladrillos[i][j].visible = false;
+                      vely = -vely;
+                      Puntuación += 1;
+            }
+          }
+      }
+    }
+  }
+
   
     //-- Actualizar la posición
     if (estado == ESTADO.INGAME) {
@@ -104,15 +165,17 @@ function update()
       y = y + vely;
 
       window.onkeydown = (e) => {     // Tecla pulsada
-        if(e.keyCode == 39) {
+        if(e.keyCode == 39 && l < 507) { // Muro derecha
             rightPressed = true;
             l = l + vell;
           }
-          else if(e.keyCode == 37) {
+          else if(e.keyCode == 37 && l > 2) { // Muro Izquierda
             leftPressed = true;
             l = l - vell;
           } 
         }
+    
+
         window.onkeyup = (e) => {       // Tecla liberada
         if (e.keyCode == 39) {
             rightPressed = false;
@@ -124,6 +187,7 @@ function update()
             } 
           }
     }
+  
     
   
     //-- 2) Borrar el canvas
@@ -151,7 +215,7 @@ function update()
 
   ctx.beginPath();
     //-- Raqueta
-    ctx.rect(l ,p , 80, 10);
+    ctx.rect(l ,p , 90, 8);
     ctx.fillStyle = 'white';
 
     //-- Dibujar el trazo
@@ -164,52 +228,45 @@ function update()
 
   ctx.font = "25px Arial";
   ctx.filltyle = 'black';
-  // ctx.fillText("Puntuación: " + scores, 10, 40);
+  ctx.fillText("Score " + Puntuación, 10, 40);
   ctx.fillText("Vidas: " + lifes, 430, 40);
 
- 
-  //-- Estructura de los ladrillos
-//-- Creación de los ladrillos, que inicialmente está vacío
-//-- en el objeto ladrillos, que inicialmente está vacío
-const ladrillos = [];
+  if (Puntuación == 10){
+  ctx.font = "30px Arial Black";
+  ctx.fillStyle = 'green'
+  ctx.fillText("VICTORY", 200, 40);
+  estado = ESTADO.FINISH;
+  }
 
-//-- Recorrer todas las filas. La veriable i toma valores de 0 hasta F-1 (número de filas)
-for (let i = 0; i < LADRILLO.F; i++) {
-    ladrillos[i] = [];  //-- Inicilizar la fila. Las filas son a su vez Arrays que inicialmente están vacíos
+  if (lifes == 0){
+      ctx.font = "30px Arial Black";
+      ctx.fillStyle = 'red'
+      ctx.fillText("FIN DEL JUEGO", 140, 40);
+      console.log("Has perdido");
+      estado = ESTADO.FINISH;
+  }
 
-    //-- Recorrer las C columnas de la fila i. La variable j toma valores de 0 hasta C-1 (numero de columnas)
-    for (let j = 0; j < LADRILLO.C; j++) {
+  
 
-        //-- Calcular valores para el ladrillo de la fila i y la columna j
-        //-- Algunos valores son constantes. Otros dependen de i y j
-      ladrillos[i][j] = {
-          x: (LADRILLO.w + LADRILLO.padding) * j,
-          y: (LADRILLO.h + LADRILLO.padding) * i,
-          w: LADRILLO.w,
-          h: LADRILLO.h,
-          padding: LADRILLO.padding,
-          visible: LADRILLO.visible
-        };
-    }
-}
-
-ladrillos[0][1].visible = false;
-
-
-//-- Dibujar ladrillos
-for (let i = 0; i < LADRILLO.F; i++) {
+  //-- Dibujar ladrillos
+  for (let i = 0; i < LADRILLO.F; i++) {
     for (let j = 0; j < LADRILLO.C; j++) {
 
       //-- Si el ladrillo es visible se pinta
-      if (ladrillos[i][j].visible) {
+      if (ladrillos[i][j].visible == true) {
         ctx.beginPath();
         ctx.rect(ladrillos[i][j].x, ladrillos[i][j].y, LADRILLO.w, LADRILLO.h);
         ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.closePath();
       }
+      else if(ladrillos[i][j].visible == false){
+      ladrillos[i][j] = [];
     }
+  }
 }
+
+  
 
   //-- 4) Volver a ejecutar update cuando toque
   requestAnimationFrame(update);
