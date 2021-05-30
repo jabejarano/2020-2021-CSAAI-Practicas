@@ -14,17 +14,23 @@ const range_valueR = document.getElementById('range_valueR');
 const range_valueG = document.getElementById('range_valueG');
 const range_valueB = document.getElementById('range_valueB');
 
-grises.onclick = () => {
-let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-let data = imgData.data
-for (var i = 0; i < data.length; i+=4) {
-    brillo = (3 * data[i] + 4 * data[i+1] + data[i+2])/8
-    data[i] = brillo;
-    data[i+1] = brillo;
-    data[i+2] = brillo;
-    }
-    ctx.putImageData(imgData, 0, 0);
-}
+  grises.onclick = () => {
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  let data = imgData.data
+  console.log("Escala de grises");
+  deslizadorR.oninput = false;
+  deslizadorG.oninput = false;
+  deslizadorB.oninput = false;
+  for (var i = 0; i < data.length; i+=4) {
+      brillo = (3 * data[i] + 4 * data[i+1] + data[i+2])/8
+      data[i] = brillo;
+      data[i+1] = brillo;
+      data[i+2] = brillo;
+      }
+      ctx.putImageData(imgData, 0, 0);
+  }
+
+
 
 
 //-- Función de retrollamada de imagen cargada
@@ -45,7 +51,7 @@ img.onload = function () {
 };
 
 function umbrales(){
-    
+  
     //-- Mostrar el nuevo valor del deslizador
     range_valueR.innerHTML = deslizadorR.value;
     range_valueG.innerHTML = deslizadorG.value;
@@ -83,7 +89,10 @@ function umbrales(){
     ctx.putImageData(imgData, 0, 0);
   } 
   
+
     //-- Funcion de retrollamada de los deslizadores
+    Colores.onclick = () => {
+    ctx.drawImage(img, 0, 0);
     deslizadorR.oninput = () => {
     umbrales();
   }
@@ -93,6 +102,9 @@ function umbrales(){
     deslizadorB.oninput = () => {
     umbrales();
     }
+    }
+
+     
 
 
   
