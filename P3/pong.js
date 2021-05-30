@@ -231,7 +231,7 @@ function update()
   ctx.fillText("Score " + Puntuación, 10, 40);
   ctx.fillText("Vidas: " + lifes, 430, 40);
 
-  if (Puntuación == 10){
+  if (Puntuación == 45){
   ctx.font = "30px Arial Black";
   ctx.fillStyle = 'green'
   ctx.fillText("VICTORY", 200, 40);
