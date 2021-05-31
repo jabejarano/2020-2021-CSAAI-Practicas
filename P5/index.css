@@ -5,3 +5,7 @@
 .video2 {
     display: inline-block;
 }
+
+html {
+    background-color: rgb(70, 70, 185);
+}
